@@ -1,18 +1,36 @@
 import React from "react";
 
-export default function OrderCard() {
-  return (
-    <div className="order">
-      <div>
-        <h4>TODO NAME</h4>
-        <small>TODO PRICE</small>
-      </div>
+export default function OrderCard({orders, updateOrder}) {
+  const handleAddProduct = (order) => {
+    order.quantity++;
+      updateOrder([...orders]);
+    }
 
-      <div className="order-quantity">
-        <div className="order-button">-</div>
-        <h4>TODO PRICE</h4>
-        <div className="order-button">+</div>
-      </div>
-    </div>
+  const handleRemoveProduct = (order) => {
+    if(order.quantity <= 0) return;
+    order.quantity--;
+    updateOrder([...orders]);
+  };
+  return (
+    <>
+      {orders.map((order, index) => {
+        return (
+          <div className="order" key={index}>
+            <div>
+              <h4>{order.product}</h4>
+              <small>$ {order.price}</small>
+            </div>
+
+            <div className="order-quantity">
+              <div className={`order-button ${order.quantity <= 0 ? 'disable' : ''}`} onClick={() => handleRemoveProduct(order)}>
+                -
+              </div>
+              <h4>{order.quantity}</h4>
+              <div className="order-button" onClick={() => handleAddProduct(order)}>+</div>
+            </div>
+          </div>      
+            );
+      })}
+    </>
   );
 }

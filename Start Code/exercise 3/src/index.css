@@ -70,11 +70,11 @@ header h1 {
   text-align: center;
   cursor: pointer;
 }
-.order-button .disable {
+.order-button.disable {
   background-color: var(--grey-color);
 }
 
-.order-button:hover {
+.order-button:not(.disable):hover {
   background: var(--main-color-light);
 }
 

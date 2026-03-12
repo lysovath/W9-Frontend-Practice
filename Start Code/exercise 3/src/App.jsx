@@ -23,7 +23,7 @@ const ORDERS = [
 
 export default function App() {
   const [orders, setOrders] = React.useState(ORDERS);
-
+  const sum = orders.reduce((acc, order) => acc += order.price*order.quantity, 0);
   return (
     <>
       <header>
@@ -31,10 +31,10 @@ export default function App() {
       </header>
 
       <div className="order-list">
-        <OrderCard></OrderCard>
+        <OrderCard orders={orders} updateOrder={(order) =>  setOrders(order)}></OrderCard>
       </div>
 
-      <CheckoutButton total="TODO"></CheckoutButton>
+      <CheckoutButton total={sum}></CheckoutButton>
     </>
   );
 }
